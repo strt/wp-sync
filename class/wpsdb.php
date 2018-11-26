@@ -365,13 +365,16 @@ class WPSDB extends WPSDB_Base {
 		if ( function_exists( 'phpversion' ) ) echo esc_html( phpversion() );
 		echo "\r\n";
 
-		echo 'MySQL: ';
-		echo esc_html( empty( $wpdb->use_mysqli ) ? mysql_get_server_info() : mysqli_get_server_info( $wpdb->dbh ) );
-		echo "\r\n";
-
 		_e( 'ext/mysqli', 'wp-app-store' ); echo ': ';
 		echo empty( $wpdb->use_mysqli ) ? 'no' : 'yes';
 		echo "\r\n";
+
+		if (!empty( $wpdb->use_mysqli )){
+			echo 'MySQL: ';
+			echo esc_html( mysqli_get_server_info( $wpdb->dbh ) );
+			echo "\r\n";
+		}
+		
 
 		_e( 'WP Memory Limit', 'wp-app-store' ); echo ': ';
 		echo WP_MEMORY_LIMIT;
